@@ -76,3 +76,8 @@ IF(WIN32)
 ENDIF(WIN32)
 ADD_EXECUTABLE(pawncc ${PAWNCC_SRCS})
 TARGET_LINK_LIBRARIES(pawncc pawnc)
+
+INSTALL(TARGETS pawnc pawncc RUNTIME DESTINATION bin
+                             LIBRARY DESTINATION lib
+                             ARCHIVE DESTINATION lib)
+INCLUDE(CPack)
