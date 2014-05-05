@@ -40,6 +40,10 @@
   #include <binreloc.h> /* from BinReloc, see www.autopackage.org */
 #endif
 
+#if defined __APPLE__
+  #include <unistd.h>
+#endif
+
 #if defined FORTIFY
   #include <alloc/fortify.h>
 #endif
