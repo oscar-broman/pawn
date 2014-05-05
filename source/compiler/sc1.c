@@ -1061,6 +1061,10 @@ static void parseoptions(int argc,char **argv,char *oname,char *ename,char *pnam
           about();
         sc_listing=TRUE;        /* skip second pass & code generation */
         break;
+      case 'm':
+        if (*(ptr+1)!='\0')
+          about();
+        sc_macros=TRUE;         /* output macro replacements */
       case 'o':
         strlcpy(oname,option_value(ptr),_MAX_PATH); /* set name of (binary) output file */
         break;
