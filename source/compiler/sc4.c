@@ -262,6 +262,11 @@ SC_FUNC void setline(int chkbounds)
 
 SC_FUNC void setfiledirect(char *name)
 {
+  if (sc_asmfile) {
+    stgwrite("; file ");
+    stgwrite(name);
+    stgwrite("\n");
+  } /* if */
   if (sc_status==statFIRST && sc_listing) {
     assert(name!=NULL);
     pc_writeasm(outf,"#file \"");
