@@ -263,6 +263,14 @@ static void doinclude(int silent)
   if (c!='\0')
     check_empty(lptr+1);        /* verify that the rest of the line is whitespace */
 
+  #if DIRSEP_CHAR=='/'
+    char *pch;
+
+    while ((pch=strchr(name,'\\'))!=NULL) {
+      *pch='/';
+    }
+  #endif
+
   if (pc_compat) {
     /* create a symbol from the name of the include file; this allows the system
      * to test for multiple inclusions

@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include "sc.h"
 
 #if defined PAWNC_DLL
@@ -158,6 +159,9 @@ static char *prefix[3]={ "error", "fatal error", "warning" };
  */
 void *pc_opensrc(char *filename)
 {
+  struct stat s;
+  if(stat(filename,&s)!=0||!(s.st_mode&S_IFREG))
+    return NULL;
   return fopen(filename,"rt");
 }
 
