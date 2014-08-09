@@ -159,10 +159,22 @@ static char *prefix[3]={ "error", "fatal error", "warning" };
  */
 void *pc_opensrc(char *filename)
 {
+  char name[_MAX_PATH];
+
+  strcpy(name, filename);
+
+  #if DIRSEP_CHAR=='/'
+    char *pch;
+
+    while ((pch=strchr(name,'\\'))!=NULL) {
+      *pch='/';
+    }
+  #endif
+
   struct stat s;
-  if(stat(filename,&s)!=0||!(s.st_mode&S_IFREG))
+  if(stat(name,&s)!=0||!(s.st_mode&S_IFREG))
     return NULL;
-  return fopen(filename,"rt");
+  return fopen(name,"rt");
 }
 
 /* pc_createsrc()

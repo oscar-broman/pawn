@@ -183,7 +183,7 @@ SC_FUNC int plungefile(char *name,int try_currentpath,int try_includepaths)
        * there is a (relative) path for the current file
        */
       char *ptr;
-      if ((ptr=strrchr(inpfname,DIRSEP_CHAR))!=0) {
+      if ((ptr=strrchr(inpfname,'\\'))!=0) {
         int len=(int)(ptr-inpfname)+1;
         if (len+strlen(name)<_MAX_PATH) {
           char path[_MAX_PATH];
@@ -195,7 +195,7 @@ SC_FUNC int plungefile(char *name,int try_currentpath,int try_includepaths)
     } /* if */
   } /* if */
 
-  if (try_includepaths && name[0]!=DIRSEP_CHAR) {
+  if (try_includepaths && name[0]!='\\') {
     int i;
     char *ptr;
     for (i=0; !result && (ptr=get_path(i))!=NULL; i++) {
@@ -263,20 +263,12 @@ static void doinclude(int silent)
   if (c!='\0')
     check_empty(lptr+1);        /* verify that the rest of the line is whitespace */
 
-  #if DIRSEP_CHAR=='/'
-    char *pch;
-
-    while ((pch=strchr(name,'\\'))!=NULL) {
-      *pch='/';
-    }
-  #endif
-
   if (pc_compat) {
     /* create a symbol from the name of the include file; this allows the system
      * to test for multiple inclusions
      */
     strcpy(symname,"_inc_");
-    if ((ptr=strrchr(name,DIRSEP_CHAR))!=NULL)
+    if ((ptr=strrchr(name,'\\'))!=NULL)
       strlcat(symname,ptr+1,sizeof symname);
     else
       strlcat(symname,name,sizeof symname);
